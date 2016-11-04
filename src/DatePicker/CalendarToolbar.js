@@ -31,11 +31,16 @@ class CalendarToolbar extends Component {
     nextMonth: PropTypes.bool,
     onMonthChange: PropTypes.func,
     prevMonth: PropTypes.bool,
+    nextYear: PropTypes.bool,
+    onYearChange: PropTypes.func,
+    prevYear: PropTypes.bool,
   };
 
   static defaultProps = {
     nextMonth: true,
     prevMonth: true,
+    nextYear: true,
+    prevYear: true,
   };
 
   state = {
@@ -50,6 +55,17 @@ class CalendarToolbar extends Component {
       });
     }
   }
+
+  handleTouchTapPrevYear = () => {
+    if (this.props.onYearChange) {
+      this.props.onYearChange(-1);
+    }
+  };
+  handleTouchTapNextYear = () => {
+    if (this.props.onYearChange) {
+      this.props.onYearChange(+1);
+    }
+  };
 
   handleTouchTapPrevMonth = () => {
     if (this.props.onMonthChange) {
@@ -74,6 +90,12 @@ class CalendarToolbar extends Component {
     return (
       <div style={styles.root}>
         <IconButton
+          disabled={!this.props.prevYear}
+          onTouchTap={this.handleTouchTapPrevYear}
+        >
+          <NavigationChevronLeft />
+        </IconButton>
+        <IconButton
           disabled={!this.props.prevMonth}
           onTouchTap={this.handleTouchTapPrevMonth}
         >
@@ -90,6 +112,12 @@ class CalendarToolbar extends Component {
         <IconButton
           disabled={!this.props.nextMonth}
           onTouchTap={this.handleTouchTapNextMonth}
+        >
+          <NavigationChevronRight />
+        </IconButton>
+        <IconButton
+          disabled={!this.props.nextYear}
+          onTouchTap={this.handleTouchTapNextYear}
         >
           <NavigationChevronRight />
         </IconButton>
